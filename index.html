@@ -1067,7 +1067,13 @@ function greyRobotMaterial(m) {
     sh.fragmentShader = sh.fragmentShader.replace('#include <map_fragment>', `#include <map_fragment>
       float lumR = dot(diffuseColor.rgb, vec3(.299, .587, .114));
       float eyeR = smoothstep(.05, .16, diffuseColor.b - max(diffuseColor.r, diffuseColor.g));
-      diffuseColor.rgb = mix(vec3(lumR) * vec3(.9, .95, 1.05) * .78, diffuseColor.rgb * 1.2, eyeR);`)
+      float skinR = smoothstep(.04, .12, diffuseColor.r - diffuseColor.b) * (1. - eyeR);
+      diffuseColor.rgb = mix(vec3(lumR) * vec3(.9, .95, 1.05) * .78, diffuseColor.rgb * 1.2, eyeR);
+      diffuseColor.rgb = mix(diffuseColor.rgb, vec3(.42, .45, .5), skinR);`)
+      .replace('#include <metalnessmap_fragment>', `#include <metalnessmap_fragment>
+      metalnessFactor = mix(metalnessFactor, .95, skinR);`)
+      .replace('#include <roughnessmap_fragment>', `#include <roughnessmap_fragment>
+      roughnessFactor = mix(roughnessFactor, .34, skinR);`)
       .replace('#include <emissivemap_fragment>', `#include <emissivemap_fragment>
       totalEmissiveRadiance += vec3(.35, .75, 1.) * eyeR * 1.6;`);
   };
