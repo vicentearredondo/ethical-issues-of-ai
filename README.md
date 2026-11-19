@@ -6,4 +6,4 @@ Open `index.html` in a browser, or visit the GitHub Pages site. Use the arrow ke
 
 ## Credits
 - 3D head scan: Lee Perry-Smith / Infinite Realities (triplegangers.com), CC BY 3.0
-- Humanoid robot photos: Pexels (Magda Ehlers and others), Pexels License
+- Humanoid robot 3D model: generated with Higgsfield (Tripo text-to-3D) for this project
